@@ -1,0 +1,138 @@
+[colors]
+background = #70000000
+foreground = #f2f2f2
+accent = #ee00ff
+
+[bar/mainbar]
+width = 100%
+height = 27
+offset-x = 0
+offset-y = 0
+radius = 0.0
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+font-0 = "Noto Sans:style=Regular"
+font-1 = "Symbola:style=Regular"
+font-2 = "Font Awesome 5 Brands Regular:style=Regular"
+font-3 = "Font Awesome 5 Free Solid:style=Solid"
+font-4 = "Font Awesome 5 Free Regular:style=Regular"
+
+padding-left = 2
+padding-right = 2
+
+module-margin-left = 2
+module-margin-right = 2
+
+modules-left = workspaces spotify spotify-ad
+modules-center = title
+modules-right = filesystem cpu memory pulseaudio time powermenu
+
+[module/workspaces]
+type = internal/xworkspaces
+pin-workspaces = false
+enable-click = true
+enable-scroll = false
+format-padding = 0
+icon-default = "⚫"
+
+interval = 1.5
+format = "<label-state>"
+
+label-active = " [%icon%] "
+label-active-foreground = ${colors.accent}
+label-active-background = ${colors.background}
+label-active-padding = 0
+
+label-empty = " %icon% "
+label-empty-padding = 0
+label-empty-foreground = ${colors.foreground}
+label-empty-background = ${colors.background}
+
+[module/filesystem]
+type = internal/fs
+
+mount-0 = /
+
+interval = 60
+
+fixed-values = true
+label-mounted = 💾 %percentage_used%%
+
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+
+label = ⚙ %percentage%%
+
+[module/memory]
+type = internal/memory
+
+interval = 2
+label =  %percentage_used%% 
+
+[module/pulseaudio]
+type = internal/pulseaudio
+sink = alsa_output.pci-0000_00_1b.0.analog-stereo
+
+use-ui-max = true
+interval = 2
+
+format-volume = <ramp-volume> <label-volume>
+label-muted = 🔇
+label-muted-foreground = ${colors.accent}
+
+ramp-volume-0 = 🔈
+ramp-volume-1 = 🔉
+ramp-volume-2 = 🔊
+
+click-left = amixer set Master toggle
+
+[module/time]
+type = internal/date
+interval = 45
+
+time = %H:%M
+
+label = %time%
+
+[module/powermenu]
+type = custom/menu
+expand-right = true
+
+label-open = 
+label-open-foreground = ${colors.accent}
+label-close = X
+label-close-foreground = ${colors.accent}
+label-separator = |
+
+menu-0-0 = Reboot
+menu-0-0-exec = systemctl reboot
+menu-0-1 = Suspend
+menu-0-1-exec = systemctl suspend
+
+[module/title]
+type = internal/xwindow
+format = <label>
+format-padding = 4
+label-maxlen = 50
+format-foreground = ${colors.accent}
+
+[module/spotify]
+type = custom/script
+interval = 1
+tail = true
+format-padding = 3
+format-prefix = " "
+format-prefix-foreground = ${colors.accent}
+format = <label>
+exec = ~/.config/polybar/spotify.sh
+click-left = playerctl -p spotify play-pause
+
+[module/spotify-ad]
+type = custom/script
+exec = ~/.config/polybar/spotify_ad.sh
+
+; vim:ft=dosini
