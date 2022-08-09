@@ -1,0 +1,14 @@
+[Desktop Entry]
+Categories=Application;Development;
+Comment=Ghidra Software Reverse Engineering Suite
+Exec=env _JAVA_AWT_WM_NONREPARENTING=1 /opt/ghidra/ghidraRun
+
+GenericName=Ghidra Software Reverse Engineering Suite
+Icon=/opt/ghidra/support/ghidra.ico
+Name=Ghidra
+Path=/opt/ghidra/
+StartupNotify=false
+Terminal=false
+TerminalOptions=
+Type=Application
+Version=1.0
